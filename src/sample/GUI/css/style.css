@@ -12,4 +12,10 @@
      -fx-border-color: darkgray;
      -fx-background-radius: 12;
      -fx-border-radius: 12;
+     -fx-padding: 20;
+ }
+
+ #label{
+     -fx-text-fill: black;
+     -fx-font-size: 20px;
  }

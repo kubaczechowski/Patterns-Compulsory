@@ -5,6 +5,14 @@ package sample.BE;
  * @date 3/16/2021 11:18 AM
  */
 public class Message {
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     String message;
 
     public Message(String message) {
