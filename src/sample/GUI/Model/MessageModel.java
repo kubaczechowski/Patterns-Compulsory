@@ -13,7 +13,8 @@ import java.util.List;
  * @date 3/16/2021 12:00 PM
  */
 public class MessageModel {
-    private IMechaChatLogicFacade facade = new Facade();
+    private IMechaChatLogicFacade facade = 
+            Facade.createOrGetInstance();
 
     List<Message> observableMessages = FXCollections.observableArrayList();
 
