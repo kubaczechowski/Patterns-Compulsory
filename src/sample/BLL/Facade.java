@@ -10,6 +10,17 @@ import java.util.List;
  */
 public class Facade implements IMechaChatLogicFacade{
     private MessageManager messageManager = new MessageManager();
+    private static Facade facade;
+
+    public static Facade createOrGetInstance() {
+        if (facade == null) {
+            facade = new Facade();
+        }
+        return facade;
+    }
+
+    private Facade() {
+    }
 
     @Override
     public void logMessage(Message msg) {
