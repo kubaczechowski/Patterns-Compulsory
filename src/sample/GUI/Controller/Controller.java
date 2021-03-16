@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private ScrollPane sp;
     private MessageModel messageModel = new MessageModel();
 
     @FXML
@@ -53,6 +56,7 @@ public class Controller implements Initializable {
      * method initializes the view of a GUI
      */
     private void initView() {
+        sp.setStyle("-fx-background-color:transparent;");
         vBox.setId("vBox");
         textField.setId("textField");
         button.setId("button");

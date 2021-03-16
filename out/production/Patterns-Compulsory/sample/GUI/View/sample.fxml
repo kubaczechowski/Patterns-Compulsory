@@ -10,7 +10,7 @@
    <children>
       <TextField fx:id="textField" layoutX="54.0" layoutY="463.0" prefHeight="82.0" prefWidth="547.0" />
       <JFXButton fx:id="button" onAction="#ButtonOnAction" layoutX="629.0" layoutY="463.0" prefHeight="82.0" prefWidth="201.0" text="Send" />
-      <ScrollPane layoutX="50.0" layoutY="30.0">
+      <ScrollPane fx:id="sp" layoutX="50.0" layoutY="30.0">
          <content>
             <VBox fx:id="vBox" prefHeight="405.0" prefWidth="781.0" />
          </content>
