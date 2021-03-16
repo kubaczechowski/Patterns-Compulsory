@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane  fx:controller="sample.GUI.Controller.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="881.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="881.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.Controller">
    <children>
-      <TextArea fx:id="textArea" layoutX="54.0" layoutY="40.0" prefHeight="404.0" prefWidth="774.0" />
       <TextField fx:id="textField" layoutX="54.0" layoutY="463.0" prefHeight="82.0" prefWidth="547.0" />
       <JFXButton fx:id="button" layoutX="629.0" layoutY="463.0" prefHeight="82.0" prefWidth="201.0" text="Send" />
+      <ScrollPane layoutX="50.0" layoutY="30.0">
+         <content>
+            <VBox fx:id="vBox" prefHeight="405.0" prefWidth="781.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
