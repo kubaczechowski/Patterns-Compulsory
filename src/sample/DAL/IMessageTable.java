@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface IMessageTable {
     List<Message> getAllMessages();
-    void saveMessage(String message);
+    void saveMessage(Message message);
 }

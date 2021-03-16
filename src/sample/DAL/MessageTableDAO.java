@@ -18,13 +18,13 @@ public class MessageTableDAO implements IMessageTable{
     @Override
     public List<Message> getAllMessages() {
         List<Message> messageList = new ArrayList<>();
-        String query = "SELECT Text FROM Movie;";
+        String query = "SELECT Text FROM Messages;";
         try (Connection con = dBconnector.getConnection()) {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(query);
 
             while(rs.next()){
-                String text = rs.getString(2);
+                String text = rs.getString("Text");
                 messageList.add(new Message(text));
             }
         } catch (SQLException throwables) {
@@ -34,14 +34,14 @@ public class MessageTableDAO implements IMessageTable{
     }
 
     @Override
-    public void saveMessage(String message) {
+    public void saveMessage(Message message) {
         String query = "INSERT INTO Messages(Text) Values(?);";
         try (Connection con = dBconnector.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(query);
         ) {
-            preparedStatement.setString(1, message);
+            preparedStatement.setString(1, message.getMessage());
             preparedStatement.executeUpdate();
-            
+
 
         } catch (SQLServerException throwables) {
             throwables.printStackTrace();
