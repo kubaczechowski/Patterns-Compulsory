@@ -8,10 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.List;
 
 
@@ -20,7 +17,7 @@ import java.util.List;
  * @date 3/16/2021 5:59 PM
  */
 public class Files implements IMessageTable {
-    private final String PATH = "sample/data.xml";
+    private final String PATH = "sample/persons.xml";
 
 
 
@@ -32,7 +29,7 @@ public class Files implements IMessageTable {
             Unmarshaller um = context.createUnmarshaller();
 
           //  File file =  new File(PATH);
-            URL fileURL = this.getClass().getResource("/sample/data.xml");
+            URL fileURL = this.getClass().getResource("/sample/persons.xml");
             File file = new File(fileURL.getPath());
             MessageListWrapper wrapper = (MessageListWrapper) um.unmarshal(file);
             return wrapper.getMessageList();
