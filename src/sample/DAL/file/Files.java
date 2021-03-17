@@ -9,6 +9,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.List;
@@ -29,9 +30,10 @@ public class Files implements IMessageTable {
             JAXBContext context = JAXBContext
                     .newInstance(Message.class);
             Unmarshaller um = context.createUnmarshaller();
-            Path filePath = FileSystems.getDefault().getPath(PATH);
-            File file = new File(filePath.toUri().toURL().toString());
+
           //  File file =  new File(PATH);
+            URL fileURL = this.getClass().getResource("/sample/data.xml");
+            File file = new File(fileURL.getPath());
             MessageListWrapper wrapper = (MessageListWrapper) um.unmarshal(file);
             return wrapper.getMessageList();
 
@@ -40,8 +42,6 @@ public class Files implements IMessageTable {
             e.printStackTrace();
             showAlert("Could not load data",
                     "Could not load data from file:\n" + PATH);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         }
         return null;
     }
