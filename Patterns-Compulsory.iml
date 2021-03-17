@@ -9,7 +9,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.openjfx:javafx-fxml:12-ea+2" level="project" />
     <orderEntry type="library" name="com.jfoenix:jfoenix:9.0.10" level="project" />
-    <orderEntry type="library" name="org.webjars:font-awesome:5.15.2" level="project" />
     <orderEntry type="library" name="com.microsoft.sqlserver:mssql-jdbc:9.1.0.jre11-preview" level="project" />
+    <orderEntry type="library" name="jaxb-api-2.4.0-b180830.0359" level="project" />
+    <orderEntry type="library" name="jaxb-impl-2.0.1" level="project" />
+    <orderEntry type="library" name="javax.activation-api-1.2.0" level="project" />
   </component>
 </module>

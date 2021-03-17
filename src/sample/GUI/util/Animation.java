@@ -10,6 +10,7 @@ import javafx.util.Duration;
  */
 public class Animation {
     public static void shakeNodeAnimation(Node node) {
+       // node.setStyle("-fx-border-color: red;");
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(50), node);
         translateTransition.setFromX(0f);
         translateTransition.setByX(10f);

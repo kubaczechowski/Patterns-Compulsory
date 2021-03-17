@@ -1,7 +1,8 @@
-package sample.DAL;
+package sample.DAL.database;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import sample.BE.Message;
+import sample.DAL.IMessageTable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Kuba
  * @date 3/16/2021 11:36 AM
  */
-public class MessageTableDAO implements IMessageTable{
+public class MessageTableDAO implements IMessageTable {
 
     private DBconnector dBconnector = new DBconnector();
 
