@@ -20,10 +20,10 @@ import java.util.List;
  * @date 3/18/2021 4:02 PM
  */
 public class StaxParser {
-    private final String  MESSAGE = "message";
+    private static final String  MESSAGE = "message";
 
     @SuppressWarnings({ "unchecked", "null" })
-    public List<Message> readConfig(String configFile) {
+    public  static List<Message>  readConfig(String configFile) {
         List<Message> items = new ArrayList<>();
         try {
             // First, create a new XMLInputFactory

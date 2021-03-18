@@ -20,41 +20,12 @@ public class FacadeDAL implements IFacadeDAL{
 
     @Override
     public void logMessage(Message msg) {
-      /*  StaxWriter configFile = new StaxWriter();
-        configFile.setFile("config2.xml");
-        try {
-            configFile.addNewMessage(msg);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-
-       */
         StaxWriter.addElementToXML(msg.getMessage());
     }
 
     @Override
     public List<Message> getAllMessages() {
-        StaxWriter configFile = new StaxWriter();
-            configFile.setFile("config2.xml");
-           try {
-               configFile.saveConfig();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-        StaxParser read = new StaxParser();
-        List<Message> readConfig = read.
-                readConfig("config2.xml");
-
-        for (Message m: readConfig
-             ) {
-            System.out.println("and now: "+ m.toString());
-        }
-
-        return readConfig;
+       return StaxParser.readConfig("config2.xml");
     }
 
 }

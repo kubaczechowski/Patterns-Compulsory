@@ -1,13 +1,11 @@
 package sample.DAL.STAX;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import sample.BE.Message;
-
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,11 +20,12 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 
 /**
- *
- *
+ *  class is responsible for adding new records
  * @author Kuba
  * @date 3/18/2021 4:16 PM
  */
+
+
 public class StaxWriter {
     private String configFile;
 
@@ -36,13 +35,8 @@ public class StaxWriter {
 
     /**
      * before first run we had to config
-     *  *  /*  StaxWriter configFile = new StaxWriter();
-     *  *         configFile.setFile("config2.xml");
-     *  *         try {
-     *  *             configFile.saveConfig();
-     *  *         } catch (Exception e) {
-     *  *             e.printStackTrace();
-     *  *         }
+     * method creates initial file or if file exists
+     * creates another content
      * @throws Exception
      */
     public void saveConfig() throws Exception {
@@ -75,12 +69,6 @@ public class StaxWriter {
         eventWriter.close();
     }
 
-    public void addNewMessage(Message message) throws FileNotFoundException, XMLStreamException {
-        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-        XMLEventWriter eventWriter = outputFactory
-                .createXMLEventWriter(new FileOutputStream(configFile));
-        createNode(eventWriter, "message", message.getMessage());
-    }
 
     public static void addElementToXML(String value){
 
@@ -88,7 +76,6 @@ public class StaxWriter {
         DocumentBuilder db = null;
         Document doc = null;
         try {
-
             String filePath = "config2.xml";
             db = dbf.newDocumentBuilder();
             doc = db.parse(new File(filePath));
@@ -109,8 +96,6 @@ public class StaxWriter {
             StreamResult result = new StreamResult(new StringWriter());
 
             transformer.transform(source, result);
-
-
             Writer output = new BufferedWriter(new FileWriter(filePath));
             String xmlOutput = result.getWriter().toString();
             output.write(xmlOutput);
@@ -118,22 +103,16 @@ public class StaxWriter {
 
 
         } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SAXException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (TransformerConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (TransformerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 
     private void createNode(XMLEventWriter eventWriter, String name,
@@ -157,3 +136,15 @@ public class StaxWriter {
     }
 
 }
+
+/**
+ * Used for creating intial configuration
+ *    StaxWriter configFile = new StaxWriter();
+ *             configFile.setFile("config2.xml");
+ *            try {
+ *                configFile.saveConfig();
+ *             } catch (Exception e) {
+ *                 e.printStackTrace();
+ *             }
+ *
+ *       */
