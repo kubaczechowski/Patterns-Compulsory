@@ -3,6 +3,8 @@ package sample.DAL;
 import sample.BE.Message;
 import sample.DAL.database.MessageTableDAO;
 import sample.DAL.file.Files;
+import sample.DAL.file.StaxParser;
+import sample.DAL.file.StaxWriter;
 
 import java.util.List;
 
@@ -16,12 +18,22 @@ public class FacadeDAL implements IFacadeDAL{
 
     @Override
     public void logMessage(Message msg) {
-        file.saveMessage(msg);
+        //file.saveMessage(msg);
     }
 
     @Override
     public List<Message> getAllMessages() {
-        return file.getAllMessages();
+
+        StaxParser read = new StaxParser();
+        List<Message> readConfig = read.
+                readConfig("config2.xml");
+
+        for (Message m: readConfig
+             ) {
+            System.out.println("and now: "+ m.toString());
+        }
+
+        return readConfig;
     }
 
 }

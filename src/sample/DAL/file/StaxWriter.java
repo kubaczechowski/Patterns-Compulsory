@@ -1,5 +1,7 @@
 package sample.DAL.file;
 
+import sample.BE.Message;
+
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
@@ -8,6 +10,8 @@ import javax.xml.stream.events.*;
 import java.io.FileOutputStream;
 
 /**
+ *
+ *
  * @author Kuba
  * @date 3/18/2021 4:16 PM
  */
@@ -18,6 +22,17 @@ public class StaxWriter {
         this.configFile = configFile;
     }
 
+    /**
+     * before first run we had to config
+     *  *  /*  StaxWriter configFile = new StaxWriter();
+     *  *         configFile.setFile("config2.xml");
+     *  *         try {
+     *  *             configFile.saveConfig();
+     *  *         } catch (Exception e) {
+     *  *             e.printStackTrace();
+     *  *         }
+     * @throws Exception
+     */
 
     public void saveConfig() throws Exception {
         // create an XMLOutputFactory
@@ -47,6 +62,10 @@ public class StaxWriter {
         eventWriter.add(end);
         eventWriter.add(eventFactory.createEndDocument());
         eventWriter.close();
+    }
+
+    public void addNewMessage(Message message){
+        
     }
 
     private void createNode(XMLEventWriter eventWriter, String name,

@@ -32,7 +32,6 @@ public class StaxParser {
             InputStream in = new FileInputStream(configFile);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
-            Message message = null;
 
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
@@ -42,14 +41,10 @@ public class StaxParser {
                     // If we have an item element, we create a new item
                     String elementName = startElement.getName().getLocalPart();
                     if(elementName.equals(MESSAGE)){
+                        Message message = new Message();
                         event = eventReader.nextEvent();
                         message.setMessage(event.asCharacters().getData());
-                    }
-                }
-                // If we reach the end of an item element, we add it to the list
-                if (event.isEndElement()) {
-                    EndElement endElement = event.asEndElement();
-                    if (endElement.getName().getLocalPart().equals(MESSAGE)) {
+                        System.out.println(message.toString());
                         items.add(message);
                     }
                 }
