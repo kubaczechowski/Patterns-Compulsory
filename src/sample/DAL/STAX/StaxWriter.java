@@ -6,6 +6,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import sample.BE.Message;
+import sample.DAL.IADDMessage;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,7 +29,7 @@ import java.io.*;
  */
 
 
-public class StaxWriter {
+public class StaxWriter implements IADDMessage {
     private String configFile;
 
     public void setFile(String configFile) {
@@ -70,7 +73,7 @@ public class StaxWriter {
     }
 
 
-    public static void addElementToXML(String value){
+    public void saveMessage(Message message){
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = null;
@@ -82,7 +85,7 @@ public class StaxWriter {
             NodeList ndListe = doc.getElementsByTagName("message");
 
 
-            String newXMLLine ="<message>"+ value+"</message>";
+            String newXMLLine ="<message>"+ message.getMessage()+"</message>";
 
             Node nodeToImport = db.parse(new InputSource(new StringReader(newXMLLine))).getElementsByTagName("message").item(0);
 

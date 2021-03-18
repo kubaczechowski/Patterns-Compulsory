@@ -18,14 +18,17 @@ public class FacadeDAL implements IFacadeDAL{
     private IADDMessage messageTable = new MessageDAO();
     private IADDMessage file = new Files();
 
+    private IGetAllMessages staxParser = new StaxParser();
+    private IADDMessage staxWriter = new StaxWriter();
+
     @Override
-    public void logMessage(Message msg) {
-        StaxWriter.addElementToXML(msg.getMessage());
+    public void saveMessage(Message msg) {
+        staxWriter.saveMessage(msg);
     }
 
     @Override
     public List<Message> getAllMessages() {
-       return StaxParser.readConfig("config2.xml");
+       return staxParser.getAllMessages();
     }
 
 }

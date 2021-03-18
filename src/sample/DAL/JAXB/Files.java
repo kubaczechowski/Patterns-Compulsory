@@ -2,6 +2,8 @@ package sample.DAL.JAXB;
 import javafx.scene.control.Alert;
 import sample.BE.Message;
 import sample.DAL.IADDMessage;
+import sample.DAL.IFacadeDAL;
+import sample.DAL.IGetAllMessages;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -19,7 +21,7 @@ import java.util.List;
  * @author Kuba
  * @date 3/16/2021 5:59 PM
  */
-public class Files implements IADDMessage {
+public class Files implements IFacadeDAL {
     private final String PATH = "/sample/persons.xml";
 
     @Override

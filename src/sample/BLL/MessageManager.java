@@ -18,6 +18,6 @@ public class MessageManager {
     }
 
     void saveMessage(Message message){
-        facadeDAL.logMessage(message);
+        facadeDAL.saveMessage(message);
     }
 }

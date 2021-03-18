@@ -8,7 +8,6 @@ import java.util.List;
  * @author Kuba
  * @date 3/16/2021 5:57 PM
  */
-public interface IFacadeDAL {
-    void logMessage(Message msg);
-    List<Message> getAllMessages();
+public interface IFacadeDAL extends IADDMessage, IGetAllMessages{
+
 }

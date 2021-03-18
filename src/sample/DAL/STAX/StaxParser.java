@@ -1,6 +1,7 @@
 package sample.DAL.STAX;
 
 import sample.BE.Message;
+import sample.DAL.IGetAllMessages;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -19,11 +20,12 @@ import java.util.List;
  * @author Kuba
  * @date 3/18/2021 4:02 PM
  */
-public class StaxParser {
+public class StaxParser implements IGetAllMessages {
     private static final String  MESSAGE = "message";
+    private static final String configFile = "config2.xml";
 
     @SuppressWarnings({ "unchecked", "null" })
-    public  static List<Message>  readConfig(String configFile) {
+    public  List<Message>  getAllMessages() {
         List<Message> items = new ArrayList<>();
         try {
             // First, create a new XMLInputFactory
