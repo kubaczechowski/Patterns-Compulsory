@@ -4,6 +4,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import sample.BE.Message;
 import sample.DAL.IADDMessage;
 import sample.DAL.IGetAllMessages;
+import sample.DAL.IOPERATIONS;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Kuba
  * @date 3/16/2021 11:36 AM
  */
-public class MessageDAO implements IADDMessage, IGetAllMessages {
+public class MessageDAO implements IOPERATIONS {
 
     private DBconnector dBconnector = new DBconnector();
 
