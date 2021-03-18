@@ -1,7 +1,7 @@
-package sample.DAL.file;
+package sample.DAL.JAXB;
 import javafx.scene.control.Alert;
 import sample.BE.Message;
-import sample.DAL.IMessageTable;
+import sample.DAL.IADDMessage;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,13 +13,14 @@ import java.util.List;
 
 
 /**
+ * Solution based on JAXB
+ * in stage of development
+ *
  * @author Kuba
  * @date 3/16/2021 5:59 PM
  */
-public class Files implements IMessageTable {
-    private final String PATH = "sample/persons.xml";
-
-
+public class Files implements IADDMessage {
+    private final String PATH = "/sample/persons.xml";
 
     @Override
     public List<Message> getAllMessages() {

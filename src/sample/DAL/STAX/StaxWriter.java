@@ -1,13 +1,25 @@
-package sample.DAL.file;
+package sample.DAL.STAX;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import sample.BE.Message;
 
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.*;
-import java.io.FileOutputStream;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 
 /**
  *
@@ -33,7 +45,6 @@ public class StaxWriter {
      *  *         }
      * @throws Exception
      */
-
     public void saveConfig() throws Exception {
         // create an XMLOutputFactory
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
@@ -64,8 +75,65 @@ public class StaxWriter {
         eventWriter.close();
     }
 
-    public void addNewMessage(Message message){
-        
+    public void addNewMessage(Message message) throws FileNotFoundException, XMLStreamException {
+        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+        XMLEventWriter eventWriter = outputFactory
+                .createXMLEventWriter(new FileOutputStream(configFile));
+        createNode(eventWriter, "message", message.getMessage());
+    }
+
+    public static void addElementToXML(String value){
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = null;
+        Document doc = null;
+        try {
+
+            String filePath = "config2.xml";
+            db = dbf.newDocumentBuilder();
+            doc = db.parse(new File(filePath));
+            NodeList ndListe = doc.getElementsByTagName("message");
+
+
+            String newXMLLine ="<message>"+ value+"</message>";
+
+            Node nodeToImport = db.parse(new InputSource(new StringReader(newXMLLine))).getElementsByTagName("message").item(0);
+
+            ndListe.item(ndListe.getLength()-1).getParentNode().appendChild(doc.importNode(nodeToImport, true));
+
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new StringWriter());
+
+            transformer.transform(source, result);
+
+
+            Writer output = new BufferedWriter(new FileWriter(filePath));
+            String xmlOutput = result.getWriter().toString();
+            output.write(xmlOutput);
+            output.close();
+
+
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     private void createNode(XMLEventWriter eventWriter, String name,

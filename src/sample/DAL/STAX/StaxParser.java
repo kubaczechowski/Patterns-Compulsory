@@ -1,4 +1,4 @@
-package sample.DAL.file;
+package sample.DAL.STAX;
 
 import sample.BE.Message;
 

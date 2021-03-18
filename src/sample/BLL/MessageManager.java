@@ -3,8 +3,6 @@ package sample.BLL;
 import sample.BE.Message;
 import sample.DAL.FacadeDAL;
 import sample.DAL.IFacadeDAL;
-import sample.DAL.IMessageTable;
-import sample.DAL.database.MessageTableDAO;
 
 import java.util.List;
 
