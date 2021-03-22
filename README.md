@@ -1,5 +1,5 @@
 # Patterns Compulsory
- Implementation of the facade and singleton pattern
+ Implementation of the facade and singleton pattern in the small message app
  
  # Libraries used
  Maven:
