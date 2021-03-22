@@ -18,6 +18,10 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.events.EndElement;
@@ -71,51 +75,54 @@ public class StaxParserWriter implements IOPERATIONS {
         eventWriter.close();
     }
 
-
-    public void saveMessage(Message message){
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = null;
-        Document doc = null;
+    public void saveMessage(Message message) {
         try {
-            String filePath = "config2.xml";
-            db = dbf.newDocumentBuilder();
-            doc = db.parse(new File(filePath));
-            NodeList ndListe = doc.getElementsByTagName("message");
 
-
-            String newXMLLine ="<message>"+ message.getMessage()+"</message>";
-
-            Node nodeToImport = db.parse(new InputSource(new StringReader(newXMLLine))).getElementsByTagName("message").item(0);
-
-            ndListe.item(ndListe.getLength()-1).getParentNode().appendChild(doc.importNode(nodeToImport, true));
-
-            TransformerFactory tFactory = TransformerFactory.newInstance();
-            Transformer transformer = tFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new StringWriter());
-
-            transformer.transform(source, result);
-            Writer output = new BufferedWriter(new FileWriter(filePath));
-            String xmlOutput = result.getWriter().toString();
-            output.write(xmlOutput);
-            output.close();
-
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+            Path in = Paths.get(configFile);
+            Path temp = Files.createTempFile(null, null);
+            XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+            try (FileWriter out = new FileWriter(temp.toFile())) {
+                XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(new FileReader(in.toFile()));
+                XMLEventWriter writer = XMLOutputFactory.newInstance().createXMLEventWriter(out);
+                int depth = 0;
+                while (reader.hasNext()) {
+                    XMLEvent event = reader.nextEvent();
+                    int eventType = event.getEventType();
+                    if (eventType == XMLStreamConstants.START_ELEMENT) {
+                        depth++;
+                    } else if (eventType == XMLStreamConstants.END_ELEMENT) {
+                        depth--;
+                        if (depth == 0) {
+                            List<Attribute> attrs = new ArrayList<>(1);
+                            //  attrs.add(eventFactory.createAttribute("id", "4"));
+                            writer.add(eventFactory.createStartElement("", null, "message", attrs.iterator(), null));
+                            writer.add(eventFactory.createCharacters(message.getMessage().trim()));
+                            writer.add(eventFactory.createEndElement("", null, "message"));
+                            writer.add(eventFactory.createSpace(System.getProperty("line.separator")));
+                        }
+                    }
+                    writer.add(event);
+                }
+                writer.flush();
+                writer.close();
+            } catch (XMLStreamException | FactoryConfigurationError e) {
+                try {
+                    throw new IOException(e);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            Files.move(temp, in, StandardCopyOption.REPLACE_EXISTING);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
         }
+
+
     }
+
+
 
     private void createNode(XMLEventWriter eventWriter, String name,
                             String value) throws XMLStreamException {

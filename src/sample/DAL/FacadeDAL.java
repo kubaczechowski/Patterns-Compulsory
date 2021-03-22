@@ -1,12 +1,10 @@
 package sample.DAL;
 
 import sample.BE.Message;
-import sample.BLL.Facade;
 import sample.DAL.STAX.StaxParserWriter;
 import sample.DAL.STAX.StaxWriter;
 import sample.DAL.database.MessageDAO;
 import sample.DAL.JAXB.Files;
-import sample.DAL.STAX.StaxParser;
 import java.util.List;
 
 /**
@@ -44,6 +42,8 @@ public class FacadeDAL implements IFacadeDAL{
 
     @Override
     public List<Message> getAllMessages() {
+
+
         switch (storageType){
             case STAX: return stax.getAllMessages();
             case DATABASE: return messageTable.getAllMessages();

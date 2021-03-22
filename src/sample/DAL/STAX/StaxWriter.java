@@ -117,6 +117,8 @@ public class StaxWriter implements IADDMessage {
         }
     }
 
+
+
     private void createNode(XMLEventWriter eventWriter, String name,
                             String value) throws XMLStreamException {
 

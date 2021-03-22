@@ -2,6 +2,7 @@ package sample.DAL;
 
 import sample.BE.Message;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,5 +10,7 @@ import java.util.List;
  * @date 3/16/2021 11:36 AM
  */
 public interface IADDMessage {
-    void saveMessage(Message message);
+    void saveMessage(Message message) ;
+
+
 }

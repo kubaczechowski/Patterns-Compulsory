@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><config>
+<?xml version="1.0" standalone="no"?><config>
 	<message>buy bread</message>
 	<message>don't forget about eggs</message>
 	<message>what about butter</message>
 	<message>buy milk too</message>
+
 </config>
